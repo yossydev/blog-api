@@ -1,29 +1,36 @@
-# Makefile
+PROJECT_NAME := blog-api
+SERVICE_NAME := blog-api
 
-# Dockerイメージの名前
-IMAGE_NAME=blog-api
-
-# コンテナ名
-CONTAINER_NAME=blog-api-container
-
-# ビルドコマンド
+# コンテナをビルドするコマンド
 build:
-	docker build -t $(IMAGE_NAME) .
+	docker-compose build $(SERVICE_NAME)
 
-# 実行コマンド
-run:
-	docker run --name $(CONTAINER_NAME) -d -p 8080:8080 $(IMAGE_NAME)
+# コンテナをバックグラウンドで起動するコマンド
+up:
+	docker-compose up -d $(SERVICE_NAME)
 
-# コンテナの停止と削除
+# コンテナを停止し削除するコマンド
+down:
+	docker-compose down
+
+# コンテナとそのボリュームを停止し削除するコマンド
+down-volumes:
+	docker-compose down -v
+
+# コンテナのログを表示するコマンド
+logs:
+	docker-compose logs -f $(SERVICE_NAME)
+
+# 不要なDockerオブジェクトをクリーンアップするコマンド
 clean:
-	docker stop $(CONTAINER_NAME)
-	docker rm $(CONTAINER_NAME)
+	docker system prune -af
+	docker volume prune -f
 
-# イメージの削除
-clean-image:
-	docker rmi $(IMAGE_NAME)
+# 任意のコマンドをコンテナ内で実行する
+exec:
+	docker-compose exec $(SERVICE_NAME) /bin/sh
 
-# コンテナとイメージの完全削除
-clean-all: clean clean-image
+# コンテナを再ビルドし、再起動するコマンド
+rebuild: down build up
 
-.PHONY: build run clean clean-image clean-all
+.PHONY: build up down down-volumes logs clean exec rebuild

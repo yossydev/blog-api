@@ -1,0 +1,9 @@
+services:
+  blog-api:
+    image: rust:latest
+    volumes:
+      - .:/projects
+    working_dir: /projects
+    command: cargo run
+    ports:
+      - "8080:8080"
