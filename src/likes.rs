@@ -13,6 +13,20 @@ struct LikeResponse {
     likes: i32,
 }
 
+// データベース接続を初期化する関数
+pub fn init_db_connection() -> Result<Connection> {
+    let conn = Connection::open("likes.db")?;
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS likes (
+            id INTEGER PRIMARY KEY,
+            slug TEXT NOT NULL UNIQUE,
+            count INTEGER DEFAULT 0
+        )",
+        [],
+    )?;
+    Ok(conn)
+}
+
 #[post("/like/{slug}")]
 pub async fn like(
     slug: web::Path<String>,
