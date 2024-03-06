@@ -4,8 +4,6 @@ services:
     volumes:
       - .:/projects
     working_dir: /projects
-    environment:
-      - RUST_BACKTRACE=1
     command: cargo run
     ports:
       - "8080:8080"
