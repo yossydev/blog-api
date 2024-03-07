@@ -31,7 +31,7 @@ pub async fn like(
 }
 
 fn update_or_insert_like(slug: &str, increment: i32) -> Result<i32> {
-    let conn = Connection::open("likes.db")?;
+    let conn = Connection::open("/data/likes.db")?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS likes (
             id INTEGER PRIMARY KEY,
@@ -69,7 +69,7 @@ pub async fn get_likes(slug: web::Path<String>) -> impl Responder {
 }
 
 fn fetch_likes(slug: &str) -> Result<LikeResponse> {
-    let conn = Connection::open("likes.db")?;
+    let conn = Connection::open("/data/likes.db")?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS likes (
             id INTEGER PRIMARY KEY,

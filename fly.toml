@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for yossydev-blog-api on 2024-02-10T00:11:48+09:00
+# fly.toml app configuration file generated for yossydev-blog-api-muddy-bird-1272 on 2024-03-08T04:05:48+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -17,6 +17,10 @@ primary_region = 'nrt'
   processes = ['app']
 
 [[vm]]
+  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 256
+
+[[mounts]]
+  source = "yossydeb_blog_api_data"
+  destination = "/data"
