@@ -3,6 +3,7 @@ services:
     image: rust:latest
     volumes:
       - .:/projects
+      - ./data:/data
     working_dir: /projects
     command: cargo run
     ports:
