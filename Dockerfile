@@ -1,4 +1,4 @@
-FROM rust:1.76.0-buster as builder
+FROM rust:1.79.0-buster as builder
 WORKDIR /usr/src/blog-api
 COPY . .
 RUN cargo build --release
